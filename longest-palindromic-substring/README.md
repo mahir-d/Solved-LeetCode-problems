@@ -1,4 +1,3 @@
-[Discussion Post (created on 14/1/2021 at 15:8)](https://leetcode.com/problems/longest-palindromic-substring/solution/)  
 <h2>5. Longest Palindromic Substring</h2><h3>Medium</h3><hr><div><p>Given a string <code>s</code>, return&nbsp;<em>the longest palindromic substring</em> in <code>s</code>.</p>
 
 <p>&nbsp;</p>
@@ -33,5 +32,4 @@
 <ul>
 	<li><code>1 &lt;= s.length &lt;= 1000</code></li>
 	<li><code>s</code> consist of only digits and English letters (lower-case and/or upper-case),</li>
-</ul>
-</div>
+</ul></div>
