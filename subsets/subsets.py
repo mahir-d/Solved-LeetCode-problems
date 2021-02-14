@@ -4,8 +4,6 @@ class Solution:
         
         result = []
         
-        used = defaultdict(bool)
-        
         
         def helper(start, curr_list):
             
@@ -13,15 +11,14 @@ class Solution:
             
             
             for i in range(start, len(nums)):
+                curr_list.append(nums[i])
+                helper(i+1, curr_list)
+                curr_list.pop()
                 
-                if not used[i]:
-                    used[i] = True
-                    curr_list.append(nums[i])
-                    helper(i+1, curr_list)
-                    curr_list.pop()
-                    used[i] = False
-                    
             return
+            
+            
+        
         
         helper(0, [])
         return result
