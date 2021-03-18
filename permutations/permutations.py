@@ -1,23 +1,24 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-
         
+        
+        len_r = len(nums)
+        visited = set()
         result = []
-        def helper(curr_list, counter):
+        
+        def dfs(curr_list):
             
-            if len(curr_list) == len(nums):
+            if len(curr_list) == len_r:
                 result.append(curr_list[:])
                 return 
-            # result.append(curr_list[:])
-            for i in counter:
-                
-                if counter[i] > 0:
-                    counter[i] -=1
-                    curr_list.append(i)
-                    helper(curr_list, counter)
+            
+            for n in nums:
+                if n not in visited:
+                    visited.add(n)
+                    curr_list.append(n)
+                    dfs(curr_list)
                     curr_list.pop()
-                    counter[i] += 1
-                
-                
-        helper([], Counter(nums))
+                    visited.remove(n)
+        dfs([])
         return result
+            
