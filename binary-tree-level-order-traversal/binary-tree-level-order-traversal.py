@@ -7,26 +7,26 @@
 class Solution:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         
-        
         if not root:
-            return None
+            return []
         
-        queue = [root]
         result = []
+        queue = [root]
         
         while queue:
-            size_q = len(queue)    
-            
+        
+            len_q = len(queue)
             curr_list = []
-            while size_q > 0:
+            while len_q > 0:
+                
                 curr_root = queue.pop(0)
-                size_q -= 1
-                
                 curr_list.append(curr_root.val)
-                
                 if curr_root.left:
                     queue.append(curr_root.left)
                 if curr_root.right:
                     queue.append(curr_root.right)
+                len_q -= 1
             result.append(curr_list)
+                             
         return result
+                    
