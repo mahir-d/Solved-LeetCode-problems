@@ -8,32 +8,36 @@ class Solution:
     def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
         
         if not root:
-            return None
+            return []
         
-        flag = False
-        queue = [root]
         result = []
+        queue = [root]
+        
+        level = 0
+        
         while queue:
             
-            size_q = len(queue)
-            
+            len_q = len(queue)
             curr_list = []
-            
-            for _ in range(size_q):
+            for i in range(len_q):
                 
                 curr_root = queue.pop(0)
-                curr_list.append(curr_root.val)
+                if level % 2 != 0:
+                    curr_list.insert(0, curr_root.val)
+                else:
+                    curr_list.append(curr_root.val)
                 
                 if curr_root.left:
                     queue.append(curr_root.left)
                 if curr_root.right:
                     queue.append(curr_root.right)
-                
-            if not flag:
-                result.append(curr_list)
-            else:
-                result.append(curr_list[::-1])
-            flag = not flag     
-            
-            
+            result.append(curr_list)
+            level+=1
         return result
+                
+                    
+                    
+    
+                
+                
+                
