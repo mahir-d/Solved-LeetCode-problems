@@ -1,18 +1,18 @@
 class Solution:
-    def climbStairs(self, n: int) -> int:
-        my_dict = {}
-        return self.helper(n , my_dict)
-        
-        
-    def helper(self, n, my_dict):
-        
-        if n <= 1:
-            return 1
-        
-        else: 
-            if n in my_dict:
-                return my_dict[n]
-            else:
-                my_dict[n] = self.helper(n - 1, my_dict) + self.helper(n - 2, my_dict)
-            return my_dict[n]
-            
+    def climbStairs(self, n: int) -> int:
+        
+        if n == 1:
+            return 1
+        elif n == 2:
+            return 2
+        
+        dp = [0 for _ in range(n)]
+        
+        dp[0] = 1
+        dp[1] = 2
+        
+        
+        for i in range(2, n):
+            dp[i] = dp[i-1] + dp[i-2]
+            
+        return dp[-1]
