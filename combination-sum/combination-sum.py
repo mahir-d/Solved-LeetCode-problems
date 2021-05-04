@@ -1,33 +1,29 @@
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         
-        
         result = []
         
         
-        def helper(i, curr_list):
+        def dfs(idx, currList, currSum):
             
-            curr_sum = sum(curr_list)
-            
-            if curr_sum == target:
-                result.append(curr_list[:])
+            if currSum == 0:
+                result.append(currList[:])
                 return 
-            if curr_sum > target:
+            if currSum < 0:
                 return
             
-            for i in range(i, len(candidates)):
-                
-                curr_list.append(candidates[i])
-                helper(i, curr_list)
-                curr_list.pop()
-                
-                
-            return
             
-            
-            
+            for i in range(idx, len(candidates)):
                 
-                
-                
-        helper(0, [])
+                currList.append(candidates[i])
+                currSum -= candidates[i]
+                dfs(i, currList, currSum)
+                currList.pop()
+                currSum+= candidates[i]
+        
+        dfs(0, [], target)
+        
         return result
+            
+                
+            
