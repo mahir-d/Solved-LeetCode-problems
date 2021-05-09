@@ -4,32 +4,21 @@ class Solution:
         memo = {}
         
         def dfs(start):
-        
+            
             if start == len(s):
                 return True
             
             if start in memo:
                 return memo[start]
             
-            for i in range(start, len(s)):
+            for i in range(start,len(s)):
                 
-                if s[start:i+1] not in wordDict:
+                if s[start: i+1] not in wordDict:
                     continue
                 if dfs(i+1):
-                    memo[start] = True
+                    memo[i+1] = True
                     return True
-                
-            
-            memo[start] = False
+            memo[start] = False 
             return False
-        
-        
         return dfs(0)
-            
-            
-            
-            
-        
-        
-        
         
