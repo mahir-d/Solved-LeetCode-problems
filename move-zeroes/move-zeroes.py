@@ -3,30 +3,20 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        zero_p = 0
         
-        non_z = 0
+        left = 0
+        right = 0
         
-        
-        while non_z < len(nums) and zero_p < len(nums):
-            while zero_p < len(nums) and nums[zero_p] != 0:
-                zero_p +=1
+        while right < len(nums):
             
-            #z = 1
-
-            while non_z < len(nums) and nums[non_z] == 0:
-                non_z+=1
-            # non = 0
+            if nums[right] != 0:
+                nums[left] = nums[right]
+                left+=1
+            right+=1
             
-
-            if zero_p < len(nums) and non_z < len(nums)  and zero_p < non_z:
-                nums[zero_p] = nums[non_z]
-                nums[non_z] = 0
-                zero_p+=1
-                non_z+=1
+        for i in range(left, len(nums)):
+            
+            nums[i] = 0
+        
                 
-            else:
-                if non_z < len(nums):
-                    non_z+=1
-                
-                
+        
