@@ -1,33 +1,33 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
         
-        if not height:
-            return 0
+        
+        max_left = height[:]
+        max_right = height[:]
+        
+        curr_max = 0
+        for i in range(0, len(max_left)):
+            
+            max_left[i] = curr_max
+            curr_max = max(curr_max, height[i])
+            
+        curr_max = 0
+        for i in range(len(height)-1, -1,-1):
+            max_right[i] = curr_max
+            curr_max = max(curr_max, height[i])
             
         
-        left = 0
-        right = len(height) - 1
-        l_max = height[left]
-        r_max = height[right]
+        curr_volume = 0
         
-        
-        water = 0
-        
-        while left < right:
+        for i in range(len(height)):
+            min_h = min(max_left[i], max_right[i])
+            if min_h > height[i]:
+                curr_volume += min_h - height[i]
             
-            if height[left] < height[right]:
-                water +=  min(l_max,r_max) - height[left]
-                left+=1
-            elif height[right] < height[left]:
-                water += min(r_max, l_max) - height[right]
-                right-=1
-            else:
-                right-=1
-            
-            l_max = max(l_max,height[left])
-            r_max = max(r_max, height[right])
+        return curr_volume
             
             
-        return water
-        
+            
+            
+            
             
