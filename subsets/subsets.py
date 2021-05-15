@@ -1,26 +1,26 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         
-        
         result = []
-        # visited = set()
-        
-        def dfs(idx, currList):
+        visited = set()
+        def dfs(start, currList):
             
-            result.append(currList[:])
+            result.append(currList[:])    
             
-            if len(currList) == len(nums):
+            if start >= len(nums):
                 return 
             
-            for i in range(idx,len(nums)):
-                # if nums[i] not in visited:  
-                    # visited.add(nums[i])
+            
+            for i in range(start, len(nums)):
+                
+                if nums[i] not in visited:
                     currList.append(nums[i])
+                    visited.add(nums[i])
                     dfs(i+1, currList)
                     currList.pop()
-                    # visited.remove(nums[i])
+                    visited.remove(nums[i])
                 
-        dfs(0, [])
+        
+        dfs(0,[])
         return result
-        
-        
+                
