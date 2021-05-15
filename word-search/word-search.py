@@ -1,30 +1,33 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
+        m = len(board)
+        n = len(board[0])
+        visited = set()
         
-        x = len(board)
-        y = len(board[0])
+        for i in range(m):
+
+            for j in range(n):
+                
+                if board[i][j] == word[0] and self.dfs(i, j, board,word, 0, visited):
+                    return True
+                
         
-        def dfs(i,j,index):
-            if index == len(word):
-                return True
-            if i<0 or i>= len(board) or j<0 or j>=len(board[0]) or board[i][j] != word[index]:
-                return False
-            temp = board[i][j]
-            board[i][j] = "*"
-            
-            x = dfs(i-1,j,index+1) or dfs(i+1,j,index+1) or dfs(i,j+1,index+1) or dfs(i,j-1,index+1)
-            
-            board[i][j] = temp
-            return x
-        for i in range(x):
-            for j in range(y):
-                if board[i][j] == word[0]:
-                    if dfs(i,j,0):
-                        return True
         return False
-
-
-
-
-
-
+    
+    def dfs(self, i, j, board, word,idx, visited):
+        
+        m = len(board)
+        n = len(board[0])
+        
+        if idx >= len(word):
+            return True
+        
+        if i < 0 or i >= m or j < 0 or j >= n or (i, j) in visited or  word[idx] != board[i][j]:
+            return False
+        
+        visited.add((i,j))
+        flag = self.dfs(i+1,j,board, word, idx+1,visited) or self.dfs(i-1,j,board, word, idx+1,visited) or self.dfs(i,j+1,board, word, idx+1,visited) or self.dfs(i,j-1,board, word, idx+1,visited)
+        visited.remove((i,j))
+        return flag
+        
+        
