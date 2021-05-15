@@ -3,55 +3,44 @@ class Solution:
         
         result = []
         
-        def dfs(start, currList):
+        def dfs(idx, currList):
             
-            if start >= len(s):
+            if idx >= len(s):
                 result.append(currList[:])
                 return
             
-            for i in range(start, len(s)):
-                curr_s = s[start: i+1]   
-                if self.validPalindrome(curr_s):
-                    currList.append(curr_s)
-                    dfs(i+1, currList)
-                    currList.pop()
+            for i in range(idx, len(s)):
+                
+                if not self.validPalindrome(s[idx: i+1]):
+                    continue
+                currList.append(s[idx: i+1])
+                dfs(i+1, currList)
+                currList.pop()
+        
         dfs(0, [])
         return result
-                
-    def validPalindrome(self, s: str):
+        
+        
+        
+    def validPalindrome(self, s):
 
-        mid = len(s)//2
+        len_s = len(s)
 
-        if len(s) % 2 == 0:
+        left = 0
+        right = len(s)-1
+        mid = (left + right + 1) // 2
 
+        if len_s % 2 == 0:
             left = mid-1
             right = mid
-
-            while left >= 0 and right < len(s):
-
-                if s[left] != s[right]:
-                    return False
-
-                else:
-                    left-=1
-                    right+=1
-            return True
         else:
-
             left = mid-1
-            right = mid+1
+            right = mid + 1
 
-            while left >= 0 and right < len(s):
-
+        while left >= 0 and right < len(s):
                 if s[left] != s[right]:
                     return False
+                left-=1
+                right+=1
 
-                else:
-                    left-=1
-                    right+=1
-            return True
-
-
-                
-                    
-                
+        return True
