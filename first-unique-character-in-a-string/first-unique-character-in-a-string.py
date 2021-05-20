@@ -1,23 +1,23 @@
 class Solution:
-    def firstUniqChar(self, s: str) -> int:
-        
-        my_dict: Dict[int: int] = {} 
-        
-        for c in s:
-            if c in my_dict:
-                
-                my_dict[c] += 1
-            
-            else:
-                
-                my_dict[c] = 1
-​
-                
-        for c in range(0, len(s)):
-            
-            if my_dict[s[c]] == 1:
-                return c
-            
-            
-        return -1
-            
+    def firstUniqChar(self, s: str) -> int:
+        
+        my_map = defaultdict(list)
+        
+        
+        
+        for idx,l in enumerate(s):
+            
+            my_map[l].append(idx)
+            
+        
+        
+        
+        for l in s:
+            
+            if len(my_map[l]) == 1:
+                return my_map[l][0]
+        
+        return -1
+            
+            
+        
