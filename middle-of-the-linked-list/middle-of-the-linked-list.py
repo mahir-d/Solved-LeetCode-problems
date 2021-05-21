@@ -3,23 +3,21 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-
 class Solution:
     def middleNode(self, head: ListNode) -> ListNode:
-    
+        
+        
+        dummyNode = ListNode()
+        dummyNode.next = head
+        
         
         slow = head
-        fast = head.next
+        fast = head
         
         
-        while fast:
+        while fast and fast.next:
             
             slow = slow.next
-            if fast.next:
-                fast = fast.next.next
-            else:
-                fast = None
-            
+            fast = fast.next.next
+        
         return slow
-        
-        
