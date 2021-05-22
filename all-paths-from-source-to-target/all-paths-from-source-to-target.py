@@ -1,25 +1,32 @@
 class Solution:
-    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
-        
-        to_rtrn: List[List[int]] = []
-        self.helper(graph, 0, [0], to_rtrn)
-        return to_rtrn
-    
-    def helper(self, graph: List[List[int]], curr_index: int, curr_list, to_rtrn: List[List[int]])->None:
-        target = len(graph) - 1
-        new_list: List[int] = curr_list.copy()
-            
-        if curr_index == target:
-            
-            to_rtrn.append(new_list.copy())
-            new_list.pop()
-        else:
-            
-            for i in graph[curr_index]:
-                new_list.append(i)
-                self.helper(graph, i, new_list, to_rtrn)
-                new_list.pop()
-                
-            
-        
-        
+    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
+        
+        m = len(graph)
+        n = len(graph[0])
+        result = []
+        visited = set()
+        
+        def dfs(i, currList):
+            print(i)
+            if i == m - 1:
+                
+                result.append(currList[:])
+                
+                return 
+            
+            
+            
+            for neigh in graph[i]:
+                if neigh not in visited:
+                    visited.add(neigh)
+                    currList.append(neigh)
+                    dfs(neigh, currList)
+                    currList.pop()
+                    visited.remove(neigh)
+            
+        
+        dfs(0,[0])
+        return result
+                    
+                
+            
