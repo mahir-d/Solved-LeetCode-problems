@@ -3,24 +3,24 @@ class Solution:
         
         result = []
         visited = set()
-        def dfs(start, currList):
+        
+        def backtrack(start, currList):
             
-            result.append(currList[:])    
+            result.append(currList[:])
             
-            if start >= len(nums):
+            if len(currList) == len(nums):
                 return 
             
             
             for i in range(start, len(nums)):
                 
-                if nums[i] not in visited:
+                if i not in visited:
+                    
+                    visited.add(i)
                     currList.append(nums[i])
-                    visited.add(nums[i])
-                    dfs(i+1, currList)
+                    backtrack(i+1, currList)
                     currList.pop()
-                    visited.remove(nums[i])
-                
-        
-        dfs(0,[])
+                    visited.remove(i)
+        backtrack(0, [])
         return result
-                
+            
