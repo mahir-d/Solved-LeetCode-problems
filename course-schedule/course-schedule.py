@@ -1,48 +1,43 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
+        visited = set()
+        visiting = set()
         my_dict = defaultdict(list)
         
-        for cell in prerequisites:
-            my_dict[cell[0]].append(cell[1])    
+        for pre in prerequisites:
+            my_dict[pre[0]].append(pre[1])
             
         
-        # to_visit = 0
-        # visiting = 1
-        # visited = 2
-        
-        state = [0 for i in range(numCourses)]
-        
-        def dfs(course)->bool:
-            
-            if state[course] == 1:
-                return False
-            if state[course] == 2:
+       
+    
+        def backtrack(idx):
+            print(idx)
+            print(visiting)
+            if idx in visited:
                 return True
-            state[course] = 1
             
-            curr_list = my_dict[course]
-            
-            for dc in curr_list:
-                if not dfs(dc):
+            for d in my_dict[idx]:
+                
+                if d in visiting:
                     return False
+                visiting.add(d)
+                if not backtrack(d):
+                    return False
+                visiting.remove(d)
             
-            state[course] = 2
+            visited.add(idx)
             return True
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        for i in range(numCourses):    
-            if not dfs(i):
+        
+        
+        for i in range(numCourses):
+            visiting.add(i)
+            if not backtrack(i):
                 return False
+            visiting.remove(i)
         return True
             
+        
             
             
+        
