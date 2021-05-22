@@ -1,24 +1,24 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         
-        
-        len_r = len(nums)
-        visited = set()
         result = []
+        visited = set()
         
-        def dfs(curr_list):
+        def backtrack(currList):
             
-            if len(curr_list) == len_r:
-                result.append(curr_list[:])
+            if len(currList) == len(nums):
+                result.append(currList[:])
                 return 
             
-            for n in nums:
-                if n not in visited:
-                    visited.add(n)
-                    curr_list.append(n)
-                    dfs(curr_list)
-                    curr_list.pop()
-                    visited.remove(n)
-        dfs([])
+            for i in range(len(nums)):                
+                
+                if i not in visited:
+                    
+                    currList.append(nums[i])
+                    visited.add(i)
+                    backtrack(currList)
+                    visited.remove(i)
+                    currList.pop()
+        
+        backtrack( [])
         return result
-            
