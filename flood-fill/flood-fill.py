@@ -1,41 +1,23 @@
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
         
-        
-        
+        m = len(image)
+        n = len(image[0])
         oldColor = image[sr][sc]
+        visited = set()
         
-        def find_neigh(i,j):
-            neigh = [(1,0), (-1,0), (0,1), (0,-1)]
-            curr_list = []
+        def dfs(i, j):
             
-            for row,col in neigh:
-                
-                if i+row < 0 or i+row > len(image)-1 or j+col<0 or j+col>len(image[0])-1 or image[i+row][j+col] != oldColor:
-                    continue
-                curr_list.append((i+row, j+col))
-            return curr_list
-        
-        
-        queue = [(sr,sc)]
-        visited = set((sr,sc))
-        while queue:
+            if i < 0 or i >= m or j < 0 or j >= n or image[i][j] != oldColor or (i,j) in visited:
+                return 
             
-            size = len(queue)
+            image[i][j] = newColor
+            visited.add((i,j))
             
-            for _ in range(size):
-                i,j = queue.pop(0)
-                
-                image[i][j] = newColor
-                
-                n_list= find_neigh(i,j)
-                
-                for n in n_list:
-                    if n not in visited:
-                        queue.append(n)
-                        visited.add(n)
-                    
+            dfs(i, j+1)
+            dfs(i, j-1)
+            dfs(i+1, j)
+            dfs(i-1, j)
             
+        dfs(sr, sc)
         return image
-                
-                
