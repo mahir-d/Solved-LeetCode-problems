@@ -1,54 +1,48 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        rotten = []
+        
+        m = len(grid)
+        n = len(grid[0])
+        
+        
+        
+        direc = [(1,0), (-1,0), (0,1), (0,-1)]
         queue = []
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
+        fresh = 0
+        for i in range(m):
+            for j in range(n):
+            
                 if grid[i][j] == 2:
                     queue.append((i,j))
-                
+                elif grid[i][j] == 1:
+                    fresh += 1
         
-        #rooteen orange
-        if queue:
-
-
-            time = -1        
-            while queue:
-
-                size = len(queue)
-
-                for _ in range(size):
-
-                    curr_cell = queue.pop(0)
-
-                    if curr_cell[0] > 0 and grid[curr_cell[0]-1][curr_cell[1]] == 1:
-                        grid[curr_cell[0]-1][curr_cell[1]] = 2
-                        queue.append((curr_cell[0] - 1, curr_cell[1])) 
-
-                    if curr_cell[0] < len(grid) - 1 and grid[curr_cell[0]+1][curr_cell[1]] == 1:
-                        grid[curr_cell[0]+1][curr_cell[1]] = 2
-                        queue.append((curr_cell[0] + 1, curr_cell[1])) 
-
-                    if curr_cell[1] > 0 and grid[curr_cell[0]][curr_cell[1]-1] == 1:
-                        grid[curr_cell[0]][curr_cell[1]-1] = 2
-                        queue.append((curr_cell[0], curr_cell[1]-1))
-
-                    if curr_cell[1] < len(grid[0])-1 and grid[curr_cell[0]][curr_cell[1]+1] == 1:
-                        grid[curr_cell[0]][curr_cell[1]+1] = 2
-                        queue.append((curr_cell[0], curr_cell[1]+1))
-                time += 1
-
-            for i in range(len(grid)):
-                for j in range(len(grid[0])):
-                    if grid[i][j] == 1:
-                        return -1
-            return time 
-        else:
-            for i in range(len(grid)):
-                for j in range(len(grid[0])):
-                    if grid[i][j] == 1:
-                        return -1
+        if fresh == 0:
             return 0
+        
+        level = -1
+        
+        
+        while queue:
+            # print(queue)
+            # print(level)
+            len_q = len(queue)
+            
+            for _ in range(len_q):
                 
-        
-        
+                i,j = queue.pop(0)
+                for d in range(len(direc)):
+                    new_i = i + direc[d][0]
+                    new_j = j + direc[d][1]
+                    
+                    if new_i < 0 or new_i >= m or new_j < 0 or new_j >= n or grid[new_i][new_j] != 1:
+                        continue
+                    grid[new_i][new_j] = 2
+                    fresh -= 1
+                    queue.append((new_i, new_j))
+                        
+            level += 1
+            
+            
+        return level if fresh == 0 else -1
+            
