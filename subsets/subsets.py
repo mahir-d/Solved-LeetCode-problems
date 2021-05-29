@@ -1,6 +1,7 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
         
+        
         result = []
         visited = set()
         
@@ -11,16 +12,17 @@ class Solution:
             if len(currList) == len(nums):
                 return 
             
-            
             for i in range(start, len(nums)):
                 
                 if i not in visited:
-                    
                     visited.add(i)
                     currList.append(nums[i])
                     backtrack(i+1, currList)
-                    currList.pop()
                     visited.remove(i)
+                    currList.pop()
         backtrack(0, [])
         return result
+                
+                
             
+        
