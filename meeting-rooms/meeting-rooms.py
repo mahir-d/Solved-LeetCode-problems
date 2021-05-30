@@ -1,14 +1,25 @@
-​
-​
+import heapq
+
 class Solution:
-    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
-        
-        intervals.sort()
-        print(intervals)
-        
-        for i in range(0, len(intervals) - 1):
-            start, end = intervals[i][0], intervals[i][1]
-            start1, end1 = intervals[i+1][0], intervals[i+1][1]
-        
-            if end > start1: return False
-        return True
+    def canAttendMeetings(self, intervals: List[List[int]]) -> bool:
+            
+        if not intervals:
+            return True
+        
+        
+        intervals.sort()
+        heap = []
+        heapq.heappush(heap, intervals[0][1])
+
+        for i in range(1, len(intervals)):
+            start = intervals[i][0]
+            end = intervals[i][1]
+            
+            if start < heap[0]:
+                heapq.heappush(heap, end)
+            else:
+                heapq.heappop(heap)
+                heapq.heappush(heap, end)
+        return len(heap) <= 1
+        
+        
