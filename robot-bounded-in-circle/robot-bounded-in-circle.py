@@ -2,28 +2,22 @@ class Solution:
     def isRobotBounded(self, instructions: str) -> bool:
         
         
-        direc_idx = 0
+        
+        
+        direction = [0,1,2,3]
         direc = [(-1,0), (0,1), (1,0),(0,-1)]
         
-        i = 0
-        j = 0
-        
+        d = 0
+        curr_i, curr_j = 0,0
         for ins in instructions:
             
-            if ins == "G":
-                i += direc[direc_idx][0]
-                j += direc[direc_idx][1]
-            
+            if ins == "R":
+                d = (d + 1) % 4 
+            elif ins == "L":
+                d = (d + 3) % 4
             else:
-                if ins == "R":
-                    direc_idx = (direc_idx + 1) % 4
-                else:
-                    direc_idx = (direc_idx + 3) % 4
-        
-        
-        if i == 0 and j == 0 or direc_idx != 0:
-            return True
-        
-        return False
+                curr_i += direc[d][0]
+                curr_j += direc[d][1]
                 
-        
+        print(d)
+        return d != 0 or curr_i == 0 and curr_j == 0
