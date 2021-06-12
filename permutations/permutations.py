@@ -4,21 +4,20 @@ class Solution:
         result = []
         visited = set()
         
-        def backtrack(currList):
+        def dfs(currList):
             
             if len(currList) == len(nums):
                 result.append(currList[:])
                 return 
             
-            for i in range(len(nums)):                
+            for i in range(len(nums)):
                 
-                if i not in visited:
+                if i not in visited:    
                     
-                    currList.append(nums[i])
                     visited.add(i)
-                    backtrack(currList)
-                    visited.remove(i)
+                    currList.append(nums[i])
+                    dfs(currList)
                     currList.pop()
-        
-        backtrack( [])
+                    visited.remove(i)
+        dfs([])
         return result
