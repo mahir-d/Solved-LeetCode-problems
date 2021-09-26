@@ -1,22 +1,26 @@
+import heapq
+
 class Solution:
     def topKFrequent(self, words: List[str], k: int) -> List[str]:
         
+        
         my_dict = defaultdict(int)
+        my_heap = []
         
         for word in words:
-            my_dict[word]+=1
+            
+            my_dict[word] += 1
+            
+        for key,value in my_dict.items():
+            
+            heapq.heappush(my_heap, (-value,key))
             
         
+        words_toRtrn = []
         
-        heap = []
-        
-        for key, value in my_dict.items():
+        for i in range(k):
             
-            heapq.heappush(heap, (-value, key))
+            words_toRtrn.append(heapq.heappop(my_heap)[1])
             
-        result = []
-        for _ in range(k):
-            result.append(heapq.heappop(heap)[1])
-        return result
-            
-        
+
+        return words_toRtrn
